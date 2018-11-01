@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Part2</string>
+    <string name="rmq">Remarques :</string>
+    <string name="enregistrer">ENREGISTRER</string>
+    <string name="prompt_nom">NOM :</string>
+    <string name="prompt_prenom">PRENOM :</string>
+    <string name="prompt_classe">CLASSE :</string>
+    <string name="title_activity_profile">Profile</string>
+    <string name="action_settings">Settings</string>
+</resources>
