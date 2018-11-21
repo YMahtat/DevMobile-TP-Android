@@ -1,4 +1,4 @@
-package ma.emsi.part2;
+package ma.emsi.tpAndroid;
 
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -29,7 +29,7 @@ public class Profile extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
+        setContentView(ma.emsi.part2.R.layout.activity_profile);
     }
 
     @Override
@@ -39,7 +39,7 @@ public class Profile extends Activity {
     }
 
     public void enregistrer(View view) {
-        Toast.makeText(this, getString(R.string.prfl_enrg), Toast.LENGTH_LONG)
+        Toast.makeText(this, getString(ma.emsi.part2.R.string.prfl_enrg), Toast.LENGTH_LONG)
              .show();
     }
 
@@ -103,10 +103,10 @@ public class Profile extends Activity {
         @Override
         protected void onPostExecute(Etudiant etudiant) {
             super.onPostExecute(etudiant);
-            EditText inputNom = findViewById(R.id.inputNom);
-            EditText inputPrenom = findViewById(R.id.inputPrenom);
-            EditText inputClasse = findViewById(R.id.inputClasse);
-            ImageView imgProfil = findViewById(R.id.IMG_Profil);
+            EditText inputNom = findViewById(ma.emsi.part2.R.id.inputNom);
+            EditText inputPrenom = findViewById(ma.emsi.part2.R.id.inputPrenom);
+            EditText inputClasse = findViewById(ma.emsi.part2.R.id.inputClasse);
+            ImageView imgProfil = findViewById(ma.emsi.part2.R.id.IMG_Profil);
 
             inputNom.setText(etudiant.getNom());
             inputPrenom.setText(etudiant.getPrenom());

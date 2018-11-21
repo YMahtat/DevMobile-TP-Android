@@ -1,4 +1,4 @@
-package ma.emsi.part2;
+package ma.emsi.tpAndroid;
 
 import org.junit.Test;
 

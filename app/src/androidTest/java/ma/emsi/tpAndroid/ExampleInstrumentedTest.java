@@ -1,4 +1,4 @@
-package ma.emsi.part2;
+package ma.emsi.tpAndroid;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
