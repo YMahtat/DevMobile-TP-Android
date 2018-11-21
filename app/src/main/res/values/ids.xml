@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="IMG_Profil" type="id" />
+    <item name="inputNom" type="id" />
+    <item name="labelNom" type="id" />
+    <item name="bntEnrg" type="id" />
+    <item name="labelPrenom" type="id" />
+    <item name="inputPrenom" type="id" />
+    <item name="labelClasse" type="id" />
+    <item name="inputClasse" type="id" />
+    <item name="labelRmQ" type="id" />
+    <item name="inputRmQ" type="id" />
+</resources>

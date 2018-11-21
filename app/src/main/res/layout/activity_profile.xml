@@ -1,7 +1,93 @@
-<fragment xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:tools="http://schemas.android.com/tools"
-android:id="@+id/fragment"
-android:name="ma.emsi.part2.ProfileFragment"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-tools:layout="@layout/fragment_profile" />
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Profile"
+    android:background="@drawable/backgroud_deg">
+
+    <ImageView
+        android:id="@id/IMG_Profil"
+        android:layout_width="100dp"
+        android:layout_height="140dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:onClick="test"
+        android:src="@drawable/profil"/>
+
+
+    <TextView
+        android:id="@id/labelNom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/inputNom"
+        android:layout_alignParentStart="true"
+        android:paddingLeft="5dp"
+        android:text="@string/prompt_nom" />
+
+    <EditText
+        android:id="@id/inputNom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/labelNom"
+        android:layout_toStartOf="@id/IMG_Profil"/>
+
+    <TextView
+        android:paddingLeft="5dp"
+        android:id="@id/labelPrenom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignBaseline="@id/inputPrenom"
+        android:text="@string/prompt_prenom"/>
+
+    <EditText
+        android:id="@id/inputPrenom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/labelPrenom"
+        android:layout_below="@id/inputNom"
+        android:layout_toStartOf="@id/IMG_Profil"/>
+
+    <TextView
+        android:paddingLeft="5dp"
+        android:id="@id/labelClasse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignBaseline="@id/inputClasse"
+        android:text="@string/prompt_classe"/>
+
+    <EditText
+        android:id="@id/inputClasse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/labelClasse"
+        android:layout_below="@id/inputPrenom"
+        android:layout_toStartOf="@id/IMG_Profil"/>
+
+    <TextView
+        android:id="@id/labelRmQ"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/inputClasse"
+        android:text="@string/rmq"/>
+
+    <EditText
+        android:id="@id/inputRmQ"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/labelRmQ"
+        android:layout_above="@id/bntEnrg"/>
+
+    <Button
+        android:id="@id/bntEnrg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:onClick="enregistrer"
+        android:text="@string/enregistrer"/>
+
+</RelativeLayout>
