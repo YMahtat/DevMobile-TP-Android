@@ -29,7 +29,7 @@ public class Profile extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(ma.emsi.part2.R.layout.activity_profile);
+        setContentView(ma.emsi.tpAndroid.R.layout.activity_profile);
     }
 
     @Override
@@ -39,7 +39,7 @@ public class Profile extends Activity {
     }
 
     public void enregistrer(View view) {
-        Toast.makeText(this, getString(ma.emsi.part2.R.string.prfl_enrg), Toast.LENGTH_LONG)
+        Toast.makeText(this, getString(ma.emsi.tpAndroid.R.string.prfl_enrg), Toast.LENGTH_LONG)
              .show();
     }
 
@@ -103,10 +103,10 @@ public class Profile extends Activity {
         @Override
         protected void onPostExecute(Etudiant etudiant) {
             super.onPostExecute(etudiant);
-            EditText inputNom = findViewById(ma.emsi.part2.R.id.inputNom);
-            EditText inputPrenom = findViewById(ma.emsi.part2.R.id.inputPrenom);
-            EditText inputClasse = findViewById(ma.emsi.part2.R.id.inputClasse);
-            ImageView imgProfil = findViewById(ma.emsi.part2.R.id.IMG_Profil);
+            EditText inputNom = findViewById(ma.emsi.tpAndroid.R.id.inputNom);
+            EditText inputPrenom = findViewById(ma.emsi.tpAndroid.R.id.inputPrenom);
+            EditText inputClasse = findViewById(ma.emsi.tpAndroid.R.id.inputClasse);
+            ImageView imgProfil = findViewById(ma.emsi.tpAndroid.R.id.IMG_Profil);
 
             inputNom.setText(etudiant.getNom());
             inputPrenom.setText(etudiant.getPrenom());
