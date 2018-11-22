@@ -44,10 +44,11 @@ public class Profile extends Activity implements Response.ErrorListener, Respons
     protected void onResume() {
         super.onResume();
         //new WSTask().execute(_urlWebService,"profile.php?login=test&passwd=test");
-        RequestQueue queue = Volley.newRequestQueue(this);
+        //RequestQueue queue = Volley.newRequestQueue(this);
         String urlWebService = _urlWebServices + _webService ;
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, urlWebService, null, this, this);
-        queue.add(request);
+        VolleySingleton.getInstance(this).getRequestQueue().add(request);
+        //queue.add(request);
     }
 
     public void enregistrer(View view) {
