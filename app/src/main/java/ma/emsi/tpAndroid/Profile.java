@@ -34,7 +34,6 @@ public class Profile extends Activity implements Response.ErrorListener, Respons
     private static final String DEBUGTAG = "PROFILE";
     public static final String _urlWebServices = "http://belatar.name/tests/";
     public static final String _webService = "profile.php?login=test&passwd=test";
-    Object walu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +46,7 @@ public class Profile extends Activity implements Response.ErrorListener, Respons
         super.onResume();
         //new WSTask().execute(_urlWebService,"profile.php?login=test&passwd=test");
         //RequestQueue queue = Volley.newRequestQueue(this);
-        String urlWebService = _urlWebServices + _webService ;
+        String urlWebService = _urlWebServices + _webService;
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, urlWebService, null, this, this);
         VolleySingleton.getInstance(this).getRequestQueue().add(request);
         //queue.add(request);
@@ -55,12 +54,11 @@ public class Profile extends Activity implements Response.ErrorListener, Respons
 
     public void enregistrer(View view) {
         Toast.makeText(this, getString(ma.emsi.tpAndroid.R.string.prfl_enrg), Toast.LENGTH_LONG)
-             .show();
+                .show();
     }
 
 
-
-    public void test(View view){
+    public void test(View view) {
         Toast.makeText(this, "Sir tl3ab", Toast.LENGTH_LONG)
                 .show();
     }
@@ -72,19 +70,17 @@ public class Profile extends Activity implements Response.ErrorListener, Respons
 
     @Override
     public void onResponse(JSONObject json) {
-        Etudiant etudiant = null;
-        if(json.has("error")) {
+        if (json.has("error")) {
             try {
                 Log.e(DEBUGTAG, json.getString("error"));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-        }
-        else {
+        } else {
 
 
             try {
-                etudiant =  new Etudiant(
+                Etudiant etudiant = new Etudiant(
                         json.getInt("id"),
                         json.getString("nom"),
                         json.getString("prenom"),
@@ -93,32 +89,26 @@ public class Profile extends Activity implements Response.ErrorListener, Respons
                         json.getString("phone")
                 );
 
-                if(etudiant == null)
-                {
-                    return;
-                }
-                else
-                {
-                    EditText inputNom = findViewById(ma.emsi.tpAndroid.R.id.inputNom);
-                    EditText inputPrenom = findViewById(ma.emsi.tpAndroid.R.id.inputPrenom);
-                    EditText inputClasse = findViewById(ma.emsi.tpAndroid.R.id.inputClasse);
-                    final ImageView imgProfil = findViewById(ma.emsi.tpAndroid.R.id.IMG_Profil);
-                    inputNom.setText(etudiant.getNom());
-                    inputPrenom.setText(etudiant.getPrenom());
-                    inputClasse.setText(etudiant.getClasse());
-                    imgProfil.setImageBitmap(etudiant.getPhoto());
-                    VolleySingleton.getInstance(this).getImageLoader().get(_urlWebServices + json.getString("photo"), new ImageLoader.ImageListener() {
-                        @Override
-                        public void onResponse(ImageLoader.ImageContainer response, boolean isImmediate) {
-                            imgProfil.setImageBitmap(response.getBitmap());
-                        }
 
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
+                EditText inputNom = findViewById(ma.emsi.tpAndroid.R.id.inputNom);
+                EditText inputPrenom = findViewById(ma.emsi.tpAndroid.R.id.inputPrenom);
+                EditText inputClasse = findViewById(ma.emsi.tpAndroid.R.id.inputClasse);
+                final ImageView imgProfil = findViewById(ma.emsi.tpAndroid.R.id.IMG_Profil);
+                inputNom.setText(etudiant.getNom());
+                inputPrenom.setText(etudiant.getPrenom());
+                inputClasse.setText(etudiant.getClasse());
+                imgProfil.setImageBitmap(etudiant.getPhoto());
+                VolleySingleton.getInstance(this).getImageLoader().get(_urlWebServices + json.getString("photo"), new ImageLoader.ImageListener() {
+                    @Override
+                    public void onResponse(ImageLoader.ImageContainer response, boolean isImmediate) {
+                        imgProfil.setImageBitmap(response.getBitmap());
+                    }
 
-                        }
-                    });
-                }
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                });
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -127,7 +117,7 @@ public class Profile extends Activity implements Response.ErrorListener, Respons
     }
 
 
-    private class WSTask extends AsyncTask<String, Void, Etudiant>{
+    private class WSTask extends AsyncTask<String, Void, Etudiant> {
 
         @Override
         protected Etudiant doInBackground(String... strings) {
@@ -145,30 +135,28 @@ public class Profile extends Activity implements Response.ErrorListener, Respons
                 Log.d(DEBUGTAG, resultat);
                 con.disconnect();
                 JSONObject json = new JSONObject(resultat);
-                if(json.has("error")) Log.e(DEBUGTAG, json.getString("error"));
+                if (json.has("error")) Log.e(DEBUGTAG, json.getString("error"));
                 else {
 
-                    URL urlPhoto = new URL( Profile._urlWebServices + json.getString("photo"));
+                    URL urlPhoto = new URL(Profile._urlWebServices + json.getString("photo"));
                     HttpURLConnection conToGetPhoto = (HttpURLConnection) urlPhoto.openConnection();
                     in = conToGetPhoto.getInputStream();
 
 
-                    Etudiant  etd =  new Etudiant(
-                                            json.getInt("id"),
-                                            json.getString("nom"),
-                                            json.getString("prenom"),
-                                            BitmapFactory.decodeStream(in),
-                                            json.getString("classe"),
-                                            json.getString("phone")
-                                        );
+                    Etudiant etd = new Etudiant(
+                            json.getInt("id"),
+                            json.getString("nom"),
+                            json.getString("prenom"),
+                            BitmapFactory.decodeStream(in),
+                            json.getString("classe"),
+                            json.getString("phone")
+                    );
                     conToGetPhoto.disconnect();
                     return etd;
                 }
-            }
-            catch (MalformedURLException e) {
+            } catch (MalformedURLException e) {
                 e.printStackTrace();
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             } catch (JSONException e) {
                 e.printStackTrace();
