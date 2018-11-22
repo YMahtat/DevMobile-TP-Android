@@ -47,6 +47,7 @@ public class Profile extends Activity implements Response.ErrorListener, Respons
         RequestQueue queue = Volley.newRequestQueue(this);
         String urlWebService = _urlWebServices + _webService ;
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, urlWebService, null, this, this);
+        queue.add(request);
     }
 
     public void enregistrer(View view) {
