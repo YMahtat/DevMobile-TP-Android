@@ -1,5 +1,6 @@
 package ma.emsi.tpAndroid;
 
+import android.app.DownloadManager;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -10,6 +11,14 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Request.Method;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -17,14 +26,16 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.ref.ReferenceQueue;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class Profile extends Activity {
+public class Profile extends Activity implements Response.ErrorListener, Response.Listener<JSONObject> {
 
     private static final String DEBUGTAG = "PROFILE";
-    public static final String _urlWebService = "http://belatar.name/tests/";
+    public static final String _urlWebServices = "http://belatar.name/tests/";
+    public static final String _webService = "profile.php?login=test&passwd=test";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +46,10 @@ public class Profile extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        new WSTask().execute(_urlWebService,"profile.php?login=test&passwd=test");
+        //new WSTask().execute(_urlWebService,"profile.php?login=test&passwd=test");
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String urlWebService = _urlWebServices + _webService ;
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, urlWebService, null, this, this);
     }
 
     public void enregistrer(View view) {
@@ -49,6 +63,58 @@ public class Profile extends Activity {
         Toast.makeText(this, "Sir tl3ab", Toast.LENGTH_LONG)
                 .show();
     }
+
+    @Override
+    public void onErrorResponse(VolleyError error) {
+
+    }
+
+    @Override
+    public void onResponse(JSONObject json) {
+        Etudiant etudiant = null;
+        if(json.has("error")) {
+            try {
+                Log.e(DEBUGTAG, json.getString("error"));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        else {
+
+
+            try {
+                etudiant =  new Etudiant(
+                        json.getInt("id"),
+                        json.getString("nom"),
+                        json.getString("prenom"),
+                        null,
+                        json.getString("classe"),
+                        json.getString("phone")
+                );
+
+                if(etudiant == null)
+                {
+                    return;
+                }
+                else
+                {
+                    EditText inputNom = findViewById(ma.emsi.tpAndroid.R.id.inputNom);
+                    EditText inputPrenom = findViewById(ma.emsi.tpAndroid.R.id.inputPrenom);
+                    EditText inputClasse = findViewById(ma.emsi.tpAndroid.R.id.inputClasse);
+                    ImageView imgProfil = findViewById(ma.emsi.tpAndroid.R.id.IMG_Profil);
+
+                    inputNom.setText(etudiant.getNom());
+                    inputPrenom.setText(etudiant.getPrenom());
+                    inputClasse.setText(etudiant.getClasse());
+                    imgProfil.setImageBitmap(etudiant.getPhoto());
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }
+    }
+
 
     private class WSTask extends AsyncTask<String, Void, Etudiant>{
 
@@ -71,7 +137,7 @@ public class Profile extends Activity {
                 if(json.has("error")) Log.e(DEBUGTAG, json.getString("error"));
                 else {
 
-                    URL urlPhoto = new URL( Profile._urlWebService + json.getString("photo"));
+                    URL urlPhoto = new URL( Profile._urlWebServices + json.getString("photo"));
                     HttpURLConnection conToGetPhoto = (HttpURLConnection) urlPhoto.openConnection();
                     in = conToGetPhoto.getInputStream();
 
@@ -112,8 +178,6 @@ public class Profile extends Activity {
             inputPrenom.setText(etudiant.getPrenom());
             inputClasse.setText(etudiant.getClasse());
             imgProfil.setImageBitmap(etudiant.getPhoto());
-
-
         }
     }
 }
