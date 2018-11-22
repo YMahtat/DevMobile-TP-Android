@@ -34,6 +34,7 @@ public class Profile extends Activity implements Response.ErrorListener, Respons
     private static final String DEBUGTAG = "PROFILE";
     public static final String _urlWebServices = "http://belatar.name/tests/";
     public static final String _webService = "profile.php?login=test&passwd=test";
+    Object walu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
