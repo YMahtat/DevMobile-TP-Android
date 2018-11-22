@@ -14,6 +14,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -100,12 +101,22 @@ public class Profile extends Activity implements Response.ErrorListener, Respons
                     EditText inputNom = findViewById(ma.emsi.tpAndroid.R.id.inputNom);
                     EditText inputPrenom = findViewById(ma.emsi.tpAndroid.R.id.inputPrenom);
                     EditText inputClasse = findViewById(ma.emsi.tpAndroid.R.id.inputClasse);
-                    ImageView imgProfil = findViewById(ma.emsi.tpAndroid.R.id.IMG_Profil);
-
+                    final ImageView imgProfil = findViewById(ma.emsi.tpAndroid.R.id.IMG_Profil);
                     inputNom.setText(etudiant.getNom());
                     inputPrenom.setText(etudiant.getPrenom());
                     inputClasse.setText(etudiant.getClasse());
                     imgProfil.setImageBitmap(etudiant.getPhoto());
+                    VolleySingleton.getInstance(this).getImageLoader().get(_urlWebServices + json.getString("photo"), new ImageLoader.ImageListener() {
+                        @Override
+                        public void onResponse(ImageLoader.ImageContainer response, boolean isImmediate) {
+                            imgProfil.setImageBitmap(response.getBitmap());
+                        }
+
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+
+                        }
+                    });
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
